@@ -1,0 +1,17 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_FILE")
+}
+
+generator client {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  tg_id Int @unique
+  points Int @default(0)
+  created_at DateTime @default(now())
+}
