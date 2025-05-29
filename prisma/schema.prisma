@@ -10,8 +10,7 @@ generator client {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  tg_id Int @unique
+  tg_id Int @id @unique
   points Int @default(0)
   created_at DateTime @default(now())
 
@@ -20,15 +19,13 @@ model User {
 }
 
 model Code {
-  id Int @id @default(autoincrement())
-  content String @unique
+  content String @id @unique
   user User @relation(fields: [user_tg_id], references: [tg_id])
   user_tg_id Int
 }
 
 model Tread {
-  id Int @id @default(autoincrement())
-  tread_id Int @unique
+  tread_id Int @id @unique
   user User @relation(fields: [user_tg_id], references: [tg_id])
   user_tg_id Int @unique
 }
