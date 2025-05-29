@@ -16,16 +16,22 @@ model User {
 
   codes Code[]
   tread Tread?
+
+  @@map("users")
 }
 
 model Code {
   content String @id @unique
   user User @relation(fields: [user_tg_id], references: [tg_id])
   user_tg_id Int
+
+  @@map("codes")
 }
 
 model Tread {
   tread_id Int @id @unique
   user User @relation(fields: [user_tg_id], references: [tg_id])
   user_tg_id Int @unique
+
+  @@map("treads")
 }
