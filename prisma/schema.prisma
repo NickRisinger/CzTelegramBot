@@ -16,6 +16,7 @@ model User {
   created_at DateTime @default(now())
 
   codes Code[]
+  tread Tread?
 }
 
 model Code {
@@ -23,4 +24,11 @@ model Code {
   content String @unique
   user User @relation(fields: [user_tg_id], references: [tg_id])
   user_tg_id Int
+}
+
+model Tread {
+  id Int @id @default(autoincrement())
+  tread_id Int @unique
+  user User @relation(fields: [user_tg_id], references: [tg_id])
+  user_tg_id Int @unique
 }
