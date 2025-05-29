@@ -14,4 +14,13 @@ model User {
   tg_id Int @unique
   points Int @default(0)
   created_at DateTime @default(now())
+
+  codes Code[]
+}
+
+model Code {
+  id Int @id @default(autoincrement())
+  content String @unique
+  user User @relation(fields: [user_tg_id], references: [tg_id])
+  user_tg_id Int
 }
