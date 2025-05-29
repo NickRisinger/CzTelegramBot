@@ -7,6 +7,16 @@
 python -m venv venv
 ```
 
+### Активация виртуального окружения
+- windows
+```shell
+./venv/Scripts/Activate.ps1
+```
+- linux
+```shell
+./venv/bin/activate
+```
+
 ### Установка зависимостей
 ```shell
 pip install -r requirements.txt
