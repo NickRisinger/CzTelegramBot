@@ -10,7 +10,7 @@ generator client {
 }
 
 model User {
-  tg_id Int @id @unique
+  tg_id BigInt @id @unique
   points Int @default(0)
   created_at DateTime @default(now())
 
@@ -23,15 +23,15 @@ model User {
 model Code {
   content String @id @unique
   user User @relation(fields: [user_tg_id], references: [tg_id])
-  user_tg_id Int
+  user_tg_id BigInt
 
   @@map("codes")
 }
 
 model Tread {
-  tread_id Int @id @unique
+  tread_id BigInt @id @unique
   user User @relation(fields: [user_tg_id], references: [tg_id])
-  user_tg_id Int @unique
+  user_tg_id BigInt @unique
 
   @@map("treads")
 }
