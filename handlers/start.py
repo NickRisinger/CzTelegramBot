@@ -33,6 +33,7 @@ def yes_no_keyboard(prefix: str):
     builder.button(text='Нет', callback_data=f'{prefix}:no')
     return builder.as_markup()
 
+
 def main_menu_keyboard():
     builder = ReplyKeyboardBuilder()
     builder.button(text='Профиль')
@@ -46,18 +47,30 @@ def main_menu_keyboard():
 
 # ============================
 
+start_message = ('Благодарим за участие в Акции!\n'
+                 'Давайте сканировать коды.\n\n'
+                 '<b>Профиль</b> - \n'
+                 '<b>Сканировать код</b> - \n'
+                 '<b>Выбрать подарки</b> - \n'
+                 '<b>Правила акции</b> - \n'
+                 '<b>Связь с поддержкой</b> - \n')
+
+unconfirmed_message = ('Извините, вы не можете учавствовать в акции!\n'
+                       'Для повторной регистрации напишите команду /start')
+
+
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     user = await get_user(message.from_user.id)
 
     if user is None:
         await message.answer(
-            'Согласны ли вы с условием проведения Акции <a href="https://mjolnir-podarkivsem.ru/">"Подарки для всех"</a>', reply_markup=yes_no_keyboard('policy'))
+            'Согласны ли вы с условием проведения Акции <a href="https://mjolnir-podarkivsem.ru/">"Подарки для всех"</a>',
+            reply_markup=yes_no_keyboard('policy'))
         return
 
     await message.answer(
-        ('Благодарим за участие в Акции!\n'
-         'Давайте сканировать коды.'),
+        start_message,
         reply_markup=main_menu_keyboard())
 
 
@@ -69,8 +82,7 @@ async def process_policy(callback: CallbackQuery):
 
     if answer == 'no':
         await callback.message.answer(
-            ('Извините, вы не можете учавствовать в акции!\n'
-             'Для повторной регистрации напишите команду /start'),
+            unconfirmed_message,
             reply_markup=None
         )
         return
@@ -86,8 +98,7 @@ async def process_age(callback: CallbackQuery):
 
     if answer == 'no':
         await callback.message.answer(
-            ('Извините, вы не можете учавствовать в акции!\n'
-             'Для повторной регистрации напишите команду /start'),
+            unconfirmed_message,
             reply_markup=None
         )
         return
@@ -95,6 +106,5 @@ async def process_age(callback: CallbackQuery):
     await create_user(callback.from_user.id)
 
     await callback.message.answer(
-        ('Благодарим за участие в Акции!\n'
-         'Давайте сканировать коды.'),
+        start_message,
         reply_markup=main_menu_keyboard())
