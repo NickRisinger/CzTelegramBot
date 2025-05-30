@@ -41,7 +41,7 @@ async def promotion_rules(message: Message):
         "2. Алкогольные подарки доступны только совершеннолетним.\n"
         "3. Подробности в прикреплённом PDF-файле."
     )
-    pdf = FSInputFile("./data/rules.txt")
+    pdf = FSInputFile("./data/rules.pdf")
 
     await message.answer(text)
     await message.answer_document(document=pdf)
