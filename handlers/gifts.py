@@ -92,7 +92,7 @@ async def back_handler(callback: CallbackQuery, state: FSMContext):
     gift = GIFTS[data["gift_id"]]
 
     if answer == 'no':
-        await gifts_handler(callback.message)
+        await gifts_handler(callback.message, state)
         return
 
     if gift["alcohol"]:
