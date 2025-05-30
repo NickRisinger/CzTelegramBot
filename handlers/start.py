@@ -1,51 +1,10 @@
 from aiogram import Router, F
-from prisma import Prisma
 from aiogram.filters import CommandStart
 from aiogram.types import Message, CallbackQuery
-from prisma.types import UserCreateInput
-from prisma.models import User
+from database.database import get_user, create_user
+from keyboards.start import yes_no_keyboard, main_menu_keyboard
 
 router = Router()
-
-
-# ============================
-
-async def get_user(tg_id: int) -> User:
-    async with Prisma() as db:
-        return await db.user.find_first(
-            where={"tg_id": tg_id},
-        )
-
-
-async def create_user(tg_id: int):
-    async with Prisma() as db:
-        return await db.user.create(
-            data=UserCreateInput(tg_id=tg_id)
-        )
-
-
-from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
-
-
-def yes_no_keyboard(prefix: str):
-    builder = InlineKeyboardBuilder()
-    builder.button(text='Да', callback_data=f'{prefix}:yes')
-    builder.button(text='Нет', callback_data=f'{prefix}:no')
-    return builder.as_markup()
-
-
-def main_menu_keyboard():
-    builder = ReplyKeyboardBuilder()
-    builder.button(text='Профиль')
-    builder.button(text='Сканировать код')
-    builder.button(text='Выбрать подарки')
-    builder.button(text='Правила акции')
-    builder.button(text='Связь с поддержкой')
-
-    return builder.adjust(1).as_markup(resize_keyboard=True)
-
-
-# ============================
 
 start_message = ('Благодарим за участие в Акции!\n'
                  'Давайте сканировать коды.\n\n'
