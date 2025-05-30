@@ -6,7 +6,7 @@ from prisma.models import User
 async def get_user(tg_id: int) -> User:
     async with Prisma() as db:
         return await db.user.find_first(
-            where={"tg_id": tg_id},
+            where={'tg_id': tg_id},
         )
 
 

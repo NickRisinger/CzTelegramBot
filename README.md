@@ -41,6 +41,8 @@ BOT_TOKEN=""
 BOT_SUPPORT_GROUP_ID=""
 BOT_NOTIFY_GROUP_ID=""
 DATABASE_FILE="file:../data/database.sqlite3"
+PATH_FILE_ALLOWED_GTINS=""
+PATH_FILE_PRODUCTS=""
 ```
 
 ## Статичные файлы
