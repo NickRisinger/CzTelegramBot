@@ -18,7 +18,7 @@ async def get_user(tg_id: int) -> User:
 
 
 @router.message(F.text == 'Профиль')
-async def cmd_start(message: Message):
+async def profile_handler(message: Message):
     user = await get_user(message.chat.id)
 
     profile_text = (
