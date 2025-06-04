@@ -6,6 +6,7 @@ load_dotenv()
 
 @dataclass
 class Config:
+    API_URL: str = os.getenv('API_URL')
     BOT_TOKEN: str = os.getenv('BOT_TOKEN')
     PATH_FILE_ALLOWED_GTINS: str = os.getenv('PATH_FILE_ALLOWED_GTINS')
     PATH_FILE_PRODUCTS: str = os.getenv('PATH_FILE_PRODUCTS')

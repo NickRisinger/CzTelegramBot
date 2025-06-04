@@ -14,6 +14,7 @@ from handlers.profile import router as profile_router
 from handlers.gifts import router as gifts_router
 from handlers.support import router as support_router
 from handlers.admin import router as admin_router
+from handlers.process import router as process_router
 
 logging.basicConfig(level=logging.INFO)
 
@@ -39,6 +40,7 @@ async def main():
     dp.include_router(gifts_router)
     dp.include_router(support_router)
     dp.include_router(admin_router)
+    dp.include_router(process_router)
 
     await dp.start_polling(bot)
 
