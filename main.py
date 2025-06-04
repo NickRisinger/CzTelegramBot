@@ -7,18 +7,20 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from config.config import Config
+from utils.utils import load_gtins_from_excel, load_products_from_excel
 
 from handlers.start import router as start_router
 from handlers.profile import router as profile_router
 from handlers.gifts import router as gifts_router
-from utils.utils import load_gtins_from_excel, load_products_from_excel
+from handlers.support import router as support_router
+from handlers.admin import router as admin_router
 
 logging.basicConfig(level=logging.INFO)
 
 
 async def startup(dispatcher: Dispatcher):
     try:
-        # load_gtins_from_excel()
+        load_gtins_from_excel()
         load_products_from_excel()
     except Exception as e:
         print('Ошибка: ', e)
@@ -35,6 +37,8 @@ async def main():
     dp.include_router(start_router)
     dp.include_router(profile_router)
     dp.include_router(gifts_router)
+    dp.include_router(support_router)
+    dp.include_router(admin_router)
 
     await dp.start_polling(bot)
 

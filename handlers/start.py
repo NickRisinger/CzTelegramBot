@@ -3,8 +3,10 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message, CallbackQuery
 from database.database import get_user, create_user
 from keyboards.start import yes_no_keyboard, main_menu_keyboard
+from middlewares.support import SupportMiddleware
 
 router = Router()
+router.message.middleware(SupportMiddleware())
 
 start_message = ('Благодарим за участие в Акции!\n'
                  'Давайте сканировать коды.\n\n'

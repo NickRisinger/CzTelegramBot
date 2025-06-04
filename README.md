@@ -43,12 +43,15 @@ BOT_NOTIFY_GROUP_ID=""
 DATABASE_FILE="file:../data/database.sqlite3"
 PATH_FILE_ALLOWED_GTINS=""
 PATH_FILE_PRODUCTS=""
+ADMINS=""
 ```
 
 ## Статичные файлы
 
 1. Создайте папку data
-2. загрузите пример изображения кода, excel файл c товарами и excel файл c участниками акции   
+2. Загрузите пример изображения кода, 
+3. excel файл c товарами и excel файл c участниками акции
+4. Файл с правилами должен называться rules.pdf
 
 ## Настройка базы данных
 
