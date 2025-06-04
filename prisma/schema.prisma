@@ -15,7 +15,7 @@ model User {
   created_at DateTime @default(now())
 
   codes Code[]
-  tread Tread?
+  treads Tread[]
 
   @@map("users")
 }
@@ -31,7 +31,7 @@ model Code {
 model Tread {
   tread_id BigInt @id @unique
   user User @relation(fields: [user_tg_id], references: [tg_id])
-  user_tg_id BigInt @unique
+  user_tg_id BigInt
 
   @@map("treads")
 }
