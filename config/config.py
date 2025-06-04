@@ -12,3 +12,4 @@ class Config:
     BOT_SUPPORT_GROUP_ID: str = os.getenv('BOT_SUPPORT_GROUP_ID')
     BOT_NOTIFY_GROUP_ID: str = os.getenv('BOT_NOTIFY_GROUP_ID')
     ADMINS: str = os.getenv('ADMINS')
+    CERTIFICATE_ID: int = int(os.getenv('CERTIFICATE_ID'))

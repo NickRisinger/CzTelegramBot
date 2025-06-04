@@ -44,6 +44,7 @@ DATABASE_FILE="file:../data/database.sqlite3"
 PATH_FILE_ALLOWED_GTINS=""
 PATH_FILE_PRODUCTS=""
 ADMINS=""
+CERTIFICATE_ID=""
 ```
 
 ## Статичные файлы
