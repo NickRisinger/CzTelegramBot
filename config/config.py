@@ -11,3 +11,4 @@ class Config:
     PATH_FILE_PRODUCTS: str = os.getenv('PATH_FILE_PRODUCTS')
     BOT_SUPPORT_GROUP_ID: str = os.getenv('BOT_SUPPORT_GROUP_ID')
     BOT_NOTIFY_GROUP_ID: str = os.getenv('BOT_NOTIFY_GROUP_ID')
+    ADMINS: str = os.getenv('ADMINS')
