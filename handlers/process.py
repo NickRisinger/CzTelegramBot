@@ -108,7 +108,4 @@ async def process_photo(message: Message, bot: Bot):
 
     except Exception as e:
         print(e)
-        await message.answer(
-            f"Ошибка соединения с сервером, повторите попытку позже\n"
-            f"В случае повторной ошибки напишите администратору: @igoree1s\n"
-        )
+        await error_message(message)
