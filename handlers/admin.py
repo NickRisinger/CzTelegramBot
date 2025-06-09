@@ -8,10 +8,8 @@ from utils.utils import load_products_from_excel, load_gtins_from_excel
 
 router = Router()
 router.message.middleware(SupportMiddleware())
-router.message.filter(IsAdmin())
 
-
-@router.message(Command('updateGtins'))
+@router.message(IsAdmin(), Command('updateGtins'))
 async def cmd_update_gtins(message: Message):
     try:
         load_gtins_from_excel()
@@ -21,7 +19,7 @@ async def cmd_update_gtins(message: Message):
         await message.answer(f'Ошибка: {e}')
 
 
-@router.message(Command('updateGifts'))
+@router.message(IsAdmin(), Command('updateGifts'))
 async def cmd_update_gifts(message: Message):
     try:
         load_products_from_excel()

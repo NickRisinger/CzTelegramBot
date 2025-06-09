@@ -8,4 +8,4 @@ class IsAdmin(Filter):
         self.admins = Config.ADMINS.split(',')
 
     async def __call__(self, message: Message):
-        return message.from_user.id in self.admins
+        return str(message.from_user.id) in self.admins
