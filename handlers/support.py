@@ -7,10 +7,8 @@ from config.config import Config
 from database.database import create_tread, get_tread
 from keyboards.start import main_menu_keyboard
 from keyboards.support import support_done_keyboard
-from middlewares.auth import AuthMiddleware
 
 router = Router()
-router.message.middleware(AuthMiddleware())
 
 
 # --- Состояния ---
