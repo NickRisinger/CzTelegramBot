@@ -8,6 +8,7 @@ from aiogram.utils.media_group import MediaGroupBuilder
 from pylibdmtx.pylibdmtx import decode
 from PIL import Image
 
+from keyboards.support import support_start_keyboard
 from middlewares.support import SupportMiddleware
 from services.fair_sign import APIService
 from utils.scan import parse_chzn_code
@@ -44,7 +45,7 @@ async def error_message(message: Message):
     )
     await message.answer(
         'Если покупка была совершена, а код все равно не регистрируется, нажмите кнопку написать в тех поддержку и загрузите фото чека о покупке и кода с бутылки.',
-        reply_markup=[])
+        reply_markup=support_start_keyboard())
 
 
 @router.message(F.text == 'Сканировать код')
