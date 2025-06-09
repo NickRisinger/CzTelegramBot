@@ -17,6 +17,13 @@ class SupportState(StatesGroup):
     in_support = State()
 
 
+@router.callback_query(F.data == 'communication-support')
+async def support_start_callback(callback: CallbackQuery, state: FSMContext):
+    await state.set_state(SupportState.set_subject)
+
+    await callback.message.answer('Напишите тему вашего обращения, чтоб мы могли быстрее вам помочь.', reply_markup=None)
+
+
 # --- Кнопка 'Связь с поддержкой' ---
 @router.message(F.text == 'Связь с поддержкой')
 async def support_start(message: Message, state: FSMContext):

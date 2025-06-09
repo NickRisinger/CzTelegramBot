@@ -40,11 +40,7 @@ async def gift_handler(callback: CallbackQuery, state: FSMContext):
 
     await callback.message.delete()
 
-    text = (
-        f'<b>{gift['name']}</b>\n'
-        f'{gift['description']}\n\n'
-        f'Стоимость: {gift['price']} баллов\n'
-    )
+    text = (f'<b>{gift['name']}</b>\n' + f'{gift['description']}\n\n' if gift['description'] else '' + f'Стоимость: {gift['price']} баллов\n')
 
     if os.path.exists(gift_image_path):
         await callback.message.answer_photo(

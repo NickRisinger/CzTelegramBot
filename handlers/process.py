@@ -4,6 +4,7 @@ from aiogram import Bot, Router, F
 from aiogram.types import Message, FSInputFile
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
+from aiogram.utils.media_group import MediaGroupBuilder
 from pylibdmtx.pylibdmtx import decode
 from PIL import Image
 
@@ -18,10 +19,32 @@ router.message.middleware(SupportMiddleware())
 cz_api = APIService()
 
 example_path = './data/datamatrix.jpg'
+example_check_path = './data/check.jpg'
 
 
 class ProcessState(StatesGroup):
     scanning = State()
+
+
+async def error_message(message: Message):
+    await message.answer('Система не может провести ваш код, убедитесь что вы совершили покупку!')
+    album_builder = MediaGroupBuilder(
+        caption='Примеры фото',
+    )
+    album_builder.add(
+        type='photo',
+        media=FSInputFile(example_check_path)
+    )
+    album_builder.add(
+        type='photo',
+        media=FSInputFile(example_path)
+    )
+    await message.answer_media_group(
+        media=album_builder.build(),
+    )
+    await message.answer(
+        'Если покупка была совершена, а код все равно не регистрируется, нажмите кнопку написать в тех поддержку и загрузите фото чека о покупке и кода с бутылки.',
+        reply_markup=[])
 
 
 @router.message(F.text == 'Сканировать код')
@@ -53,7 +76,7 @@ async def process_photo(message: Message, bot: Bot):
     decoded = decode(image)
 
     if not decoded:
-        await message.answer('Код не распознан, попробуйте еще раз!')
+        await error_message(message)
         return
 
     raw_data = decoded[0].data.decode('utf-8')
@@ -62,10 +85,7 @@ async def process_photo(message: Message, bot: Bot):
     code_exist = await get_code(parsed['CLEAN'])
 
     if code_exist:
-        await message.answer(
-            f"Эта продукция уже была зарегистрирована.\n"
-            f"Если это ошибка, обратитесь к администратору: @igoree1s\n"
-        )
+        await error_message(message)
         return
 
     # Проверка GTIN на участие в акции
@@ -81,10 +101,7 @@ async def process_photo(message: Message, bot: Bot):
             await add_code(message.from_user.id, parsed['CLEAN'])
             await message.answer('Данный код успешно зарегистрирован, вам начислен один балл')
         else:
-            await message.answer(
-                f"Эта продукция еще не была куплена.\n"
-                f"Если это ошибка, обратитесь к администратору: @igoree1s\n"
-            )
+            await error_message(message)
 
     except Exception as e:
         print(e)

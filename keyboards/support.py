@@ -1,4 +1,11 @@
-from aiogram.utils.keyboard import ReplyKeyboardBuilder
+from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
+
+
+def support_done_keyboard():
+    builder = InlineKeyboardBuilder()
+    builder.button(text='Связь с поддержкой', callback_data='communication-support')
+    return builder.adjust(1).as_markup()
+
 
 def support_done_keyboard():
     builder = ReplyKeyboardBuilder()
