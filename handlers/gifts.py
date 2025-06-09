@@ -9,10 +9,12 @@ from config.config import Config
 from database.database import get_user, update_balance
 from keyboards.gifts import products_keyboard, product_keyboard
 from keyboards.start import yes_no_keyboard
+from middlewares.auth import AuthMiddleware
 from middlewares.support import SupportMiddleware
 from utils.utils import GIFTS
 
 router = Router()
+router.message.middleware(AuthMiddleware())
 router.message.middleware(SupportMiddleware())
 
 

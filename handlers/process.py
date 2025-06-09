@@ -9,6 +9,7 @@ from pylibdmtx.pylibdmtx import decode
 from PIL import Image
 
 from keyboards.support import support_start_keyboard
+from middlewares.auth import AuthMiddleware
 from middlewares.support import SupportMiddleware
 from services.fair_sign import APIService
 from utils.scan import parse_chzn_code
@@ -16,6 +17,7 @@ from utils.utils import gtins
 from database.database import add_code, get_code
 
 router = Router()
+router.message.middleware(AuthMiddleware())
 router.message.middleware(SupportMiddleware())
 cz_api = APIService()
 

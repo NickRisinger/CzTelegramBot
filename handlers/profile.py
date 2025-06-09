@@ -1,10 +1,12 @@
 from aiogram import Router, F
 from aiogram.types import Message, FSInputFile
 from database.database import get_user_and_codes
+from middlewares.auth import AuthMiddleware
 from middlewares.support import SupportMiddleware
 from utils.utils import format_date
 
 router = Router()
+router.message.middleware(AuthMiddleware())
 router.message.middleware(SupportMiddleware())
 
 
