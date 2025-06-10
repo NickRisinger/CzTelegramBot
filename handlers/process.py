@@ -34,14 +34,16 @@ async def error_message(message: Message):
     album_builder = MediaGroupBuilder(
         caption='Примеры фото',
     )
-    album_builder.add(
-        type='photo',
-        media=FSInputFile(example_check_path)
-    )
-    album_builder.add(
-        type='photo',
-        media=FSInputFile(example_path)
-    )
+    if os.path.exists(example_check_path):
+        album_builder.add(
+            type='photo',
+            media=FSInputFile(example_check_path)
+        )
+    if os.path.exists(example_path):
+        album_builder.add(
+            type='photo',
+            media=FSInputFile(example_path)
+        )
     await message.answer_media_group(
         media=album_builder.build(),
     )
